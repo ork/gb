@@ -37,22 +37,22 @@ struct _registers {
 typedef struct _registers registers_t;
 
 // Access A and F as a 16 bits register
-uint16_t registers_get_af(struct registers_s *reg);
+uint16_t registers_get_af(registers_t *reg);
 // Access B and C as a 16 bits register
-uint16_t registers_get_bc(struct registers_s *reg);
+uint16_t registers_get_bc(registers_t *reg);
 // Access D and E as a 16 bits register
-uint16_t registers_get_de(struct registers_s *reg);
+uint16_t registers_get_de(registers_t *reg);
 // Access H and L as a 16 bits register
-uint16_t registers_get_hl(struct registers_s *reg);
+uint16_t registers_get_hl(registers_t *reg);
 
 // Set A and F as a 16 bits register
-void registers_set_af(struct registers_s *reg, uint16_t val);
+void registers_set_af(registers_t *reg, uint16_t val);
 // Set B and C as a 16 bits register
-void registers_set_bc(struct registers_s *reg, uint16_t val);
+void registers_set_bc(registers_t *reg, uint16_t val);
 // Set D and E as a 16 bits register
-void registers_set_de(struct registers_s *reg, uint16_t val);
+void registers_set_de(registers_t *reg, uint16_t val);
 // Set H and L as a 16 bits register
-void registers_set_hl(struct registers_s *reg, uint16_t val);
+void registers_set_hl(registers_t *reg, uint16_t val);
 
 /* Bits in the flag register
  * ┌─┬─┬─┬─┬─┬─┬─┬─┐

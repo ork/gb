@@ -3,7 +3,7 @@
 #include <string.h>
 #include "simple.h"
 
-uint8_t mem_simple_read_rom(struct _memory *mem, uint16_t address) {
+uint8_t mem_simple_read_rom(memory_t *mem, uint16_t address) {
     memory_simple_t *internal = mem->internal;
 
     switch (address) {
@@ -17,12 +17,12 @@ uint8_t mem_simple_read_rom(struct _memory *mem, uint16_t address) {
     }
 }
 
-uint8_t mem_simple_read_ram(__attribute__((unused)) struct _memory *mem,
+uint8_t mem_simple_read_ram(__attribute__((unused)) memory_t *mem,
                             __attribute__((unused)) uint16_t address) {
     return 0;
 }
 
-void mem_simple_write_rom(struct _memory *mem, uint16_t address, uint8_t val) {
+void mem_simple_write_rom(memory_t *mem, uint16_t address, uint8_t val) {
     memory_simple_t *internal = mem->internal;
 
     switch (address) {
@@ -35,7 +35,7 @@ void mem_simple_write_rom(struct _memory *mem, uint16_t address, uint8_t val) {
     }
 }
 
-void mem_simple_write_ram(__attribute__((unused)) struct _memory *mem,
+void mem_simple_write_ram(__attribute__((unused)) memory_t *mem,
                           __attribute__((unused)) uint16_t address,
                           __attribute__((unused)) uint8_t val) {
     return;
@@ -59,7 +59,7 @@ memory_t *mem_simple_new(uint8_t *rom, size_t rom_size) {
     return mem;
 }
 
-void mem_simple_del(struct _memory *mem) {
+void mem_simple_del(memory_t *mem) {
     memory_simple_t *internal = mem->internal;
 
     free(internal->rom);

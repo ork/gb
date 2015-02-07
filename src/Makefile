@@ -1,7 +1,8 @@
 EXEC     = gb
-CC       = gcc
+CC       = clang
 
 CFLAGS   = -std=c99 -O3 -Wall -Wextra -Wpedantic -Wstrict-aliasing
+CFLAGS  += -Wno-gnu-binary-literal
 
 SRC      = $(wildcard *.c)
 OBJ      = $(SRC:.c=.o)

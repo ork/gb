@@ -35,3 +35,17 @@ void registers_set_hl(registers_t *reg, const uint16_t val) {
     reg->h = (uint8_t) (val >> 8);
     reg->l = (uint8_t) (val & 0x00F0);
 }
+
+bool registers_get_flag(registers_t *reg, flag_offset_t flag) {
+    return (reg->f & (uint8_t) flag) > 0;
+}
+
+void registers_set_flag(registers_t *reg, flag_offset_t flag, bool bit) {
+    if (bit) {
+        reg->f |= (uint8_t) flag;
+    } else {
+        reg->f &= (uint8_t) !flag;
+    }
+    // Reset the second nibble to zero
+    reg->f &= 0b11110000;
+}

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stdbool.h>
 #include <stdint.h>
 
 /* Registers mapping
@@ -36,13 +37,13 @@ struct _registers {
 };
 typedef struct _registers registers_t;
 
-// Access A and F as a 16 bits register
+// Get A and F as a 16 bits register
 uint16_t registers_get_af(registers_t *reg);
-// Access B and C as a 16 bits register
+// Get B and C as a 16 bits register
 uint16_t registers_get_bc(registers_t *reg);
-// Access D and E as a 16 bits register
+// Get D and E as a 16 bits register
 uint16_t registers_get_de(registers_t *reg);
-// Access H and L as a 16 bits register
+// Get H and L as a 16 bits register
 uint16_t registers_get_hl(registers_t *reg);
 
 // Set A and F as a 16 bits register
@@ -68,4 +69,9 @@ enum _flag_offset {
     Z = 0b10000000, // Zero
 };
 typedef enum _flag_offset flag_offset_t;
+
+// Get the value of the bit of the specified flag
+bool registers_get_flag(registers_t *reg, flag_offset_t flag);
+// Set the value of the bit of the specified flag
+void registers_set_flag(registers_t *reg, flag_offset_t flag, bool bit);
 

@@ -18,7 +18,7 @@ ${EXEC}: $(OBJ)
 .PHONY: clean mrproper
 
 clean:
-	@rm -rf *.o
+	@rm -rf *.o memory/*.o
 
 mrproper: clean
 	@rm -rf $(EXEC)

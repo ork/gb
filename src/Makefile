@@ -2,9 +2,9 @@ EXEC     = gb
 CC       = clang
 
 CFLAGS   = -std=c99 -O3 -Wall -Wextra -Wpedantic -Wstrict-aliasing
-CFLAGS  += -Wno-gnu-binary-literal
+CFLAGS  += -Wno-gnu-binary-literal -Wno-gnu-case-range
 
-SRC      = $(wildcard *.c)
+SRC      = $(wildcard *.c memory/*.c)
 OBJ      = $(SRC:.c=.o)
 
 all: $(EXEC)

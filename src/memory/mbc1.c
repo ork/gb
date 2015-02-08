@@ -94,12 +94,12 @@ memory_t *mem_mbc1_new(uint8_t *rom, size_t rom_size, size_t ram_size) {
     // Internal structure allocation
     mem->internal = malloc(sizeof(memory_mbc1_t *));
     memory_mbc1_t *internal = mem->internal;
-    internal->rom = malloc(sizeof(uint8_t *) * rom_size);
-    internal->ram = malloc(sizeof(uint8_t *) * ram_size);
+    internal->rom = malloc(sizeof(uint8_t) * rom_size);
+    internal->ram = malloc(sizeof(uint8_t) * ram_size);
 
     // Internal structure init
-    memcpy(internal->rom, rom, rom_size);
-    memset(internal->ram, 0, ram_size);
+    memcpy(internal->rom, rom, sizeof(uint8_t) * rom_size);
+    memset(internal->ram, 0, sizeof(uint8_t) * ram_size);
     internal->ram_on = false;
     internal->ram_mode = RAM_MODE_16Mb_ROM_8KB_RAM;
     internal->selected_rom_bank = 0x01;

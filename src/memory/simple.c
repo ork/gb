@@ -53,10 +53,10 @@ memory_t *mem_simple_new(uint8_t *rom, size_t rom_size) {
     // Internal structure allocation
     mem->internal = malloc(sizeof(memory_simple_t *));
     memory_simple_t *internal = mem->internal;
-    internal->rom = malloc(sizeof(uint8_t *) * rom_size);
+    internal->rom = malloc(sizeof(uint8_t) * rom_size);
 
     // Internal structure init
-    memcpy(internal->rom, rom, rom_size);
+    memcpy(internal->rom, rom, sizeof(uint8_t) * rom_size);
 
     return mem;
 }

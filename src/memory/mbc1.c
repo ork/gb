@@ -82,10 +82,8 @@ void mem_mbc1_write_ram(memory_t *mem, uint16_t address, uint8_t val) {
     internal->ram[(ram_bank * 0x2000) | (address & 0x1FFF)] = val;
 }
 
-memory_t *mem_mbc1_new(uint8_t *rom, size_t rom_size) {
+memory_t *mem_mbc1_new(uint8_t *rom, size_t rom_size, size_t ram_size) {
     memory_t *mem = malloc(sizeof(memory_t *));
-    mem->internal = malloc(sizeof(memory_mbc1_t *));
-    memory_mbc1_t *internal = mem->internal;
 
     // Function pointers assignation
     mem->read_rom = mem_mbc1_read_rom;
@@ -93,9 +91,19 @@ memory_t *mem_mbc1_new(uint8_t *rom, size_t rom_size) {
     mem->write_rom = mem_mbc1_write_rom;
     mem->write_ram = mem_mbc1_write_ram;
 
+    // Internal structure allocation
+    mem->internal = malloc(sizeof(memory_mbc1_t *));
+    memory_mbc1_t *internal = mem->internal;
     internal->rom = malloc(sizeof(uint8_t *) * rom_size);
+    internal->ram = malloc(sizeof(uint8_t *) * ram_size);
 
+    // Internal structure init
     memcpy(internal->rom, rom, rom_size);
+    memset(internal->ram, 0, ram_size);
+    internal->ram_on = false;
+    internal->ram_mode = RAM_MODE_16Mb_ROM_8KB_RAM;
+    internal->selected_rom_bank = 0x01;
+    internal->selected_ram_bank = 0x00;
 
     return mem;
 }

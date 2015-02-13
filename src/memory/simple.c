@@ -7,9 +7,9 @@ uint8_t mem_simple_read_rom(memory_t *mem, uint16_t address) {
     memory_simple_t *internal = mem->internal;
 
     switch (address) {
-    case 0x0000 ... 0x8000:
+    case 0x0000 ... 0x8000: // ROM
         return internal->rom[address];
-    case 0xA000 ... 0xBFFF:
+    case 0xA000 ... 0xBFFF: // ROM mirror
         return internal->rom[address - 0xA000];
     default:
         fprintf(stderr, "Invalid memory read : %x\n", address);

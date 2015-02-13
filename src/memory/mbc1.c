@@ -6,7 +6,8 @@
 uint8_t mem_mbc1_read_rom(memory_t *mem, uint16_t address) {
     memory_mbc1_t *internal = mem->internal;
 
-	if (address < 0x4000) {
+    if (address < 0x4000) {
+        // ROM Bank 00
 	    return internal->rom[address];
     } else {
         return internal->rom[internal->selected_rom_bank * 0x4000 | (address & 0x3FFF)];
@@ -37,13 +38,13 @@ void mem_mbc1_write_rom(memory_t *mem, uint16_t address, uint8_t val) {
     memory_mbc1_t *internal = mem->internal;
 
     switch (address) {
-    case 0x0000 ... 0x1FFF:
+    case 0x0000 ... 0x1FFF: // RAM Enable
         internal->ram_on = (val == 0x0A);
         break;
-    case 0x2000 ... 0x3FFF:
+    case 0x2000 ... 0x3FFF: // ROM Bank Number
         internal->selected_rom_bank = ((internal->selected_ram_bank & 0x60) | ((val & 0x1F) ? val & 0x1F : 0));
         break;
-    case 0x4000 ... 0x5FFF:
+    case 0x4000 ... 0x5FFF: // RAM Bank Number - or - Upper Bits of ROM Bank Number
         switch (internal->ram_mode) {
         case RAM_MODE_16Mb_ROM_8KB_RAM:
             internal->selected_rom_bank = ((internal->selected_rom_bank & 0x1F) | ((val & 0x03) << 5));
@@ -53,8 +54,8 @@ void mem_mbc1_write_rom(memory_t *mem, uint16_t address, uint8_t val) {
             break;
         }
         break;
-    case 0x6000 ... 0x7FFF:
-        internal->ram_mode = ((val & 0x01) == 0x01);
+    case 0x6000 ... 0x7FFF: // ROM/RAM Mode Select
+        internal->ram_mode = ((val & 0x01) == 0x01) ? RAM_MODE_16Mb_ROM_8KB_RAM : RAM_MODE_4Mb_ROM_32KB_RAM;
         break;
     default:
         fprintf(stderr, "Invalid memory write : %x\n", address);

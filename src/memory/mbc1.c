@@ -84,7 +84,7 @@ void mem_mbc1_write_ram(memory_t *mem, uint16_t address, uint8_t val) {
 }
 
 memory_t *mem_mbc1_new(uint8_t *rom, size_t rom_size, size_t ram_size) {
-    memory_t *mem = malloc(sizeof(memory_t *));
+    memory_t *mem = malloc(sizeof(memory_t));
 
     // Function pointers assignation
     mem->read_rom = mem_mbc1_read_rom;
@@ -93,7 +93,7 @@ memory_t *mem_mbc1_new(uint8_t *rom, size_t rom_size, size_t ram_size) {
     mem->write_ram = mem_mbc1_write_ram;
 
     // Internal structure allocation
-    mem->internal = malloc(sizeof(memory_mbc1_t *));
+    mem->internal = malloc(sizeof(memory_mbc1_t));
     memory_mbc1_t *internal = mem->internal;
     internal->rom = malloc(sizeof(uint8_t) * rom_size);
     internal->ram = malloc(sizeof(uint8_t) * ram_size);
